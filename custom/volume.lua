@@ -26,12 +26,15 @@ function volume.new()
 end
 
 function volume.get_info() 
+
+	local _txt = ""
+	local _val = 0
+
 	local fd = io.popen("amixer sget Master");
 	local status = fd:read("*all")
 	fd:close()
 
-	print(status)
-	local voltext = 0 --tonumber(string.match(status, "(%d?%d?%d)%%")) / 100
+	local voltext = tonumber(string.match(status, "(%d?%d?%d)%%")) / 100
 	status = string.match(status, "%[(o[^%]]*)%]")
 
 	local sr, sg, sb = 0x3F, 0x3F, 0x3F
@@ -42,9 +45,17 @@ function volume.get_info()
 	local ib = voltext * (eb - sb) + sb
 	interpol_colour = string.format("%.2x%.2x%.2x", ir, ig, ib)
 
+	_val = voltext * 100
+	if string.find(status, "on", 1, true) then
+		volume.info.color = "#9ECE9E"
+		_txt = " vol: " .. string.format("%4d%%", _val)
+	else
+		volume.info.color = "#CC9393"
+		_txt = " vol: mute "
+	end
 
 	volume.widget.background:set_fg(volume.info.color)
-	volume.widget.text:set_text(voltext)
+	volume.widget.text:set_text(_txt)
 end
 
 return volume

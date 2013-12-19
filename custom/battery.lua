@@ -69,7 +69,7 @@ function battery.check_status(adapter)
 					 font    = "Liberation 11", })
 		end
 
-		infos = " " .. "bat: " .. bat .. "% "
+		infos = " " .. "bat: " .. string.format("%3d%%", bat)
 
 	else
 		infos = "A/C"

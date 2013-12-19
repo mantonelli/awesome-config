@@ -52,7 +52,7 @@ function cpu.get_info()
 		cpu.info.color = "#9ECE9E"
 	end
 
-	s =  " cpu~: " .. _val .. "%"
+	s =  " cpu~: " .. string.format("%3d%%", _val)
 
 	cpu.widget.background:set_fg(cpu.info.color)
 	cpu.widget.text:set_text(s)
