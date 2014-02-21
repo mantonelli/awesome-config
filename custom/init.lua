@@ -4,6 +4,7 @@ return {
 
 	battery = require("custom.battery"),
 	cpu     = require("custom.cpu"),
-	volume  = require("custom.volume")
+	volume  = require("custom.volume"),
+	ram     = require("custom.ram")
 
 }

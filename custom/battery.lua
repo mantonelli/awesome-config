@@ -16,7 +16,7 @@ function battery.new()
 
 	battery.check_status("BAT0")
 
-	battery.timer = timer({ timeout = 20 })
+	battery.timer = timer({ timeout = 30 })
 	battery.timer:connect_signal("timeout", function() battery.check_status("BAT0") end)
 	battery.timer:start()
 

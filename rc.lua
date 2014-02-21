@@ -216,6 +216,7 @@ for s = 1, screen.count() do
     local custom = require("custom")
    
     local cpu     = custom.cpu.new()
+    local ram     = custom.ram.new()
     local battery = custom.battery.new()
     local volume  = custom.volume.new()
 
@@ -226,6 +227,7 @@ for s = 1, screen.count() do
     if s == 1 then
 	_b_r_layout:add(volume)
 	_b_r_layout:add(cpu)
+	_b_r_layout:add(ram)
 	_b_r_layout:add(battery)	
     end
 
@@ -325,9 +327,10 @@ clientkeys = awful.util.table.join(
             c.maximized_horizontal = not c.maximized_horizontal
             c.maximized_vertical   = not c.maximized_vertical
         end),
-	awful.key({ }, "XF86AudioRaiseVolume", function() awful.util.spawn("amixer set Master 5%+", false) end),
-	awful.key({ }, "XF86AudioLowerVolume", function() awful.util.spawn("amixer set Master 5%-", false) end),
-	awful.key({ }, "XF86AudioMute",        function() awful.util.spawn("amixer sset Master toggle", false) end)
+	awful.key({ }, "XF86AudioRaiseVolume", function() awful.util.spawn("amixer set Master 5%+", false)     end),
+	awful.key({ }, "XF86AudioLowerVolume", function() awful.util.spawn("amixer set Master 5%-", false)     end),
+	awful.key({ }, "XF86AudioMute",        function() awful.util.spawn("amixer sset Master toggle", false) end),
+	awful.key({ modkey,       }, "F12"   , function() awful.util.spawn("xscreensaver-command -lock", false)                     end)
 )
 
 -- Bind all key numbers to tags.
