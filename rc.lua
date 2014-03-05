@@ -305,6 +305,15 @@ globalkeys = awful.util.table.join(
                   awful.util.eval, nil,
                   awful.util.getdir("cache") .. "/history_eval")
               end),
+    -- SSH Prompt
+    awful.key({ modkey }, "s",
+    	      function()
+		      awful.prompt.run({ prompt = "SSH: " },
+		      mypromptbox[mouse.screen].widget,
+		      function(s)
+			      awful.util.spawn(terminal .. " -e ssh " .. s)
+		      end)
+	      end),
     -- Menubar
     awful.key({ modkey }, "p", function() menubar.show() end)
 )
@@ -327,10 +336,11 @@ clientkeys = awful.util.table.join(
             c.maximized_horizontal = not c.maximized_horizontal
             c.maximized_vertical   = not c.maximized_vertical
         end),
-	awful.key({ }, "XF86AudioRaiseVolume", function() awful.util.spawn("amixer set Master 5%+", false)     end),
-	awful.key({ }, "XF86AudioLowerVolume", function() awful.util.spawn("amixer set Master 5%-", false)     end),
-	awful.key({ }, "XF86AudioMute",        function() awful.util.spawn("amixer sset Master toggle", false) end),
-	awful.key({ modkey,       }, "F12"   , function() awful.util.spawn("xscreensaver-command -lock", false)                     end)
+	awful.key({ }, "XF86AudioRaiseVolume", function() awful.util.spawn("amixer set Master 5%+", false)      end),
+	awful.key({ }, "XF86AudioLowerVolume", function() awful.util.spawn("amixer set Master 5%-", false)      end),
+	awful.key({ }, "XF86AudioMute",        function() awful.util.spawn("amixer sset Master toggle", false)  end),
+	awful.key({ modkey,       }, "F12"   , function() awful.util.spawn("xscreensaver-command -lock", false) end),
+	awful.key({ modkey,       }, "F3"    , function() awful.util.spawn("spacefm", false)                    end)
 )
 
 -- Bind all key numbers to tags.
