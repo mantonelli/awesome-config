@@ -315,7 +315,16 @@ globalkeys = awful.util.table.join(
 		      end)
 	      end),
     -- Menubar
-    awful.key({ modkey }, "p", function() menubar.show() end)
+    awful.key({ modkey }, "p", function() menubar.show() end),
+
+        -- Controle de volume de áudio
+	awful.key({ }, "XF86AudioRaiseVolume", function() awful.util.spawn("amixer set Master 5%+", false)      end),
+	awful.key({ }, "XF86AudioLowerVolume", function() awful.util.spawn("amixer set Master 5%-", false)      end),
+	awful.key({ }, "XF86AudioMute",        function() awful.util.spawn("amixer sset Master toggle", false)  end),
+	-- Bloqueio da tela
+	awful.key({ modkey,       }, "F12"   , function() awful.util.spawn("xscreensaver-command -lock", false) end),
+	-- Inicial o gerenciador de arquivos SpaceFM
+	awful.key({ modkey,       }, "F3"    , function() awful.util.spawn("spacefm", false)                    end)
 )
 
 clientkeys = awful.util.table.join(
@@ -335,12 +344,7 @@ clientkeys = awful.util.table.join(
         function (c)
             c.maximized_horizontal = not c.maximized_horizontal
             c.maximized_vertical   = not c.maximized_vertical
-        end),
-	awful.key({ }, "XF86AudioRaiseVolume", function() awful.util.spawn("amixer set Master 5%+", false)      end),
-	awful.key({ }, "XF86AudioLowerVolume", function() awful.util.spawn("amixer set Master 5%-", false)      end),
-	awful.key({ }, "XF86AudioMute",        function() awful.util.spawn("amixer sset Master toggle", false)  end),
-	awful.key({ modkey,       }, "F12"   , function() awful.util.spawn("xscreensaver-command -lock", false) end),
-	awful.key({ modkey,       }, "F3"    , function() awful.util.spawn("spacefm", false)                    end)
+        end)
 )
 
 -- Bind all key numbers to tags.
