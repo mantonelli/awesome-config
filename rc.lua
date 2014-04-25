@@ -215,26 +215,30 @@ for s = 1, screen.count() do
 
     local custom = require("custom")
    
+    -- By Matheus Antonelli - Create a wibox, botton aligned
+    bottom_wibox[s]  = awful.wibox({ position = "bottom", screen = s })
+    local _bottom_layout = wibox.layout.fixed.vertical()
+
+    -- Create a status bar
     local cpu     = custom.cpu.new()
     local ram     = custom.ram.new()
     local battery = custom.battery.new()
     local volume  = custom.volume.new()
 
-    -- By Matheus Antonelli - Create a wibox, botton aligned
-    bottom_wibox[s] = awful.wibox({ position = "bottom", screen = s })
-
-    local _b_r_layout = wibox.layout.fixed.horizontal()
+    local _status_layout   = wibox.layout.align.horizontal()
+    local _status_r_layout = wibox.layout.fixed.horizontal()
     if s == 1 then
-	_b_r_layout:add(volume)
-	_b_r_layout:add(cpu)
-	_b_r_layout:add(ram)
-	_b_r_layout:add(battery)	
+	_status_r_layout:add(volume)
+	_status_r_layout:add(cpu)
+	_status_r_layout:add(ram)
+	_status_r_layout:add(battery)	
     end
 
-    local _b_layout = wibox.layout.align.horizontal()
-    _b_layout:set_right(_b_r_layout)
+    _status_layout:set_right(_status_r_layout)
+    
+    _bottom_layout:add(_status_layout)
 
-    bottom_wibox[s]:set_widget(_b_layout)
+    bottom_wibox[s]:set_widget(_bottom_layout)
 
 end
 -- }}}
@@ -321,6 +325,8 @@ globalkeys = awful.util.table.join(
 	awful.key({ }, "XF86AudioRaiseVolume", function() awful.util.spawn("amixer set Master 5%+", false)      end),
 	awful.key({ }, "XF86AudioLowerVolume", function() awful.util.spawn("amixer set Master 5%-", false)      end),
 	awful.key({ }, "XF86AudioMute",        function() awful.util.spawn("amixer sset Master toggle", false)  end),
+	-- Controle do touchpad
+	awful.key({ }, "XF86TouchpadToggle",   function() awful.util.spawn("/home/mantonelli/.config/awesome/scripts/touchpad.sh", false) end),
 	-- Bloqueio da tela
 	awful.key({ modkey,       }, "F12"   , function() awful.util.spawn("xscreensaver-command -lock", false) end),
 	-- Inicial o gerenciador de arquivos SpaceFM
@@ -499,6 +505,6 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 
 -- {{{ Auto start apps
 
-os.execute("nm-applet &")
+os.execute("wicd-gtk --tray &")
 
 -- }}}
