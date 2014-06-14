@@ -75,7 +75,7 @@ local layouts =
 -- {{{ Wallpaper
 if beautiful.wallpaper then
     for s = 1, screen.count() do
-        gears.wallpaper.maximized(beautiful.wallpaper, s, true)
+        gears.wallpaper.maximized(beautiful.wallpaper[s], s, true)
     end
 end
 -- }}}
@@ -86,6 +86,18 @@ tags = {}
 for s = 1, screen.count() do
     -- Each screen has its own tag table.
     tags[s] = awful.tag({ 1, 2, 3, 4, 5, 6, 7, 8, 9 }, s, layouts[1])
+end
+-- }}}
+
+-- {{{ Tags wallpapers
+for s = 1, screen.count() do
+	for t = 1, 9 do
+		tags[s][t]:connect_signal("property::selected", function(tag) 
+			if not tag.selected then return end
+			gears.wallpaper.maximized(beautiful.wallpaper[t], s, true)
+			print(beautiful.wallpaper[t])
+		end)
+	end
 end
 -- }}}
 

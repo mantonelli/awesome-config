@@ -9,7 +9,20 @@
 -- {{{ Main
 theme = {}
 theme.home_folder = "/home/mantonelli/.config/awesome/themes/zenburn"
-theme.wallpaper   = theme.home_folder .. "/wallpaper/background.jpg"
+theme.wallpaper   = {
+	theme.home_folder .. "/wallpaper/background1.jpg",
+	theme.home_folder .. "/wallpaper/background2.jpg",
+	theme.home_folder .. "/wallpaper/background3.jpg",
+	theme.home_folder .. "/wallpaper/background4.jpg",
+	theme.home_folder .. "/wallpaper/background5.jpg",
+	theme.home_folder .. "/wallpaper/background6.jpg",
+	theme.home_folder .. "/wallpaper/background6.jpg",
+	theme.home_folder .. "/wallpaper/background6.jpg",
+	theme.home_folder .. "/wallpaper/background6.jpg"
+}
+
+--for key,value in pairs(theme.wallpaper) do print(key,value) end 
+
 -- }}}
 
 -- {{{ Styles
@@ -33,8 +46,10 @@ theme.border_marked = "#CC9393"
 -- }}}
 
 -- {{{ Titlebars
-theme.titlebar_bg_focus  = "#3F3F3F"
-theme.titlebar_bg_normal = "#3F3F3F"
+theme.titlebar_bg_focus  = theme.bg_focus  --"#3F3F3F"
+theme.titlebar_bg_normal = theme.bg_normal --"#3F3F3F"
+theme.titlebar_focus     = theme.border_focus
+theme.titlebar_normal    = theme.border_normal
 -- }}}
 
 -- There are other variable sets
